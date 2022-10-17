@@ -1,0 +1,28 @@
+
+.deleteIcons {
+    background: #ff9494;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+}
+.deleteIcons:hover{
+    background-color: #d84260;
+}
+
+.deleteIcons span:hover{
+    color: white;
+}
+.deleteIcons span {
+    text-align: center;
+    line-height: 60px;
+    display: block;
+    color: #f32121;
+    transition: 0.3s ease-in;
+}
+
+.deleteIcons svg {
+    display: inline-block;
+    font-size: 30px;
+}

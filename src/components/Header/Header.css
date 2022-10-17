@@ -1,0 +1,19 @@
+a.active {
+    background: none;
+    outline: none;
+    color: inherit;
+}
+/* .menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):focus), .menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover) {
+    background-color: none;
+} */
+
+::-webkit-scrollbar{
+    width: 12px;
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 6px;
+    background: linear-gradient(transparent, #48e917);
+}
+::-webkit-scrollbar-thumb:hover{
+    background: linear-gradient(transparent, #00c6ff);
+}
