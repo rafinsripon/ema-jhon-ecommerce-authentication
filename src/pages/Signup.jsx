@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import banner from '../images/im-1.png';
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from '../contexts/UserContext';
+import Swal from 'sweetalert2';
 
 const Signup = () => {
     const [error, setError] = useState(null);
-    const {createUser} = useContext(AuthContext);
+    const {createUser, verifyEmail} = useContext(AuthContext);
 
     const handleSubmit =(event) =>{
         event.preventDefault();
@@ -14,6 +15,7 @@ const Signup = () => {
         const email = form.email.value;
         const password = form.password.value;
         const confirm = form.confirm.value;
+
         // console.log(email, passwrod, confirm);
         //Pass and confirm password validation
         if(password.length < 6){
@@ -30,13 +32,25 @@ const Signup = () => {
         createUser(email, password)
         .then((result) => {
             const user = result.user;
+            Swal.fire(
+                '🚀Please Check Your Email Address!',
+            )
             form.reset();
             console.log(user);
+            //varify email adress
+            verifyEmail()
+            .then(() => {
+                console.log('success')
+            })
         })
         .catch((error) => {
+            const errorMessage = error.message;
+            setError(errorMessage);
             console.log('SignUp Error: ', error);
         })
     }
+
+
     return (
         <div>
             <div className="hero min-h-screen bg-gray-800">

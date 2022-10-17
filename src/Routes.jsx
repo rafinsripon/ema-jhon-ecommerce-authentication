@@ -11,7 +11,6 @@ import Shop from "./pages/Shop";
 import Signup from "./pages/Signup";
 import PrivateRoute from "./routes/PrivateRoute";
 
-
 export const router = createBrowserRouter([
     {
         path: '/',

@@ -3,9 +3,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import banner from '../images/im-1.png';
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from '../contexts/UserContext';
+import Swal from 'sweetalert2';
 
 const Login = () => {
-    const {signIn} = useContext(AuthContext);
+    const {signIn, signWithGoogle} = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     //private route location setup
@@ -23,17 +24,37 @@ const Login = () => {
         signIn(email, password)
         .then((result) => {
             const user = result.user;
+            //self practice email varify
+            if(!user.emailVerified){
+                return Swal.fire(
+                    '🚀Plzz Cheack your email varify!',
+                )
+            }
             form.reset();
             navigate(from, {replace: true});
-            
             console.log(user)
+            
         })
         .catch((error) => {
             const errorMessage = error.message;
             setError(errorMessage);
-            console.log('Sign In error: ', error);
+            console.log('Sign In error: ', errorMessage);
         })
         setError('');
+    }
+    //sign with google
+    const handleGoogleSignIn = () => {
+        signWithGoogle()
+        .then(result => {
+            const user = result.user;
+            navigate(from, {replace: true});
+            console.log(user);
+        })
+        .catch(error => {
+            const errorMessage = error.message;
+            setError(errorMessage);
+            console.log('Google Sign in: ', errorMessage);
+        })
     }
 
     return (
@@ -80,7 +101,7 @@ const Login = () => {
                             <div className="divider before:bg-pink-700 after:bg-pink-700">OR</div>
                         </div>
                         <div className='px-8 pb-2 mt-2'>
-                            <button className='flex items-center justify-center w-full border-4 border-[#ebebeb1a] hover:border-[#ebebeb36] py-2'>
+                            <button onClick={handleGoogleSignIn} className='flex items-center justify-center w-full border-4 border-[#ebebeb1a] hover:border-[#ebebeb36] py-2'>
                             <span className='text-xl'><FcGoogle /></span>
                             <p className='ml-2'>Continue with Google</p>
                             </button>
